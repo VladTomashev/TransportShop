@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TransportShop.DAL.Entities
+﻿namespace TransportShop.DAL.Entities
 {
-    internal class Product
+    public class Product : AbstractEntity
     {
+        public int idCategory { get; set; }
+        public string name { get; set; }
+        public double price { get; set; }
+        public int weight { get; set; }
+        public int maxSpeed { get; set; }
+        public double fuelConsumption { get; set; }
+
+        public Category category { get; set; }
     }
 }

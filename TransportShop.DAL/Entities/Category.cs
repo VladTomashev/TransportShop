@@ -1,4 +1,4 @@
-﻿namespace TransportShopAPI.Entities
+﻿namespace TransportShop.DAL.Entities
 {
     public class Category : AbstractEntity
     {
