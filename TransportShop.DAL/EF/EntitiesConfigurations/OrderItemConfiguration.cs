@@ -8,18 +8,18 @@ namespace TransportShop.DAL.EF.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasOne(oi => oi.product)
+            builder.HasOne(oi => oi.Product)
                 .WithMany()
-                .HasForeignKey(oi => oi.idProduct)
-                .HasPrincipalKey(p => p.id);
+                .HasForeignKey(oi => oi.IdProduct)
+                .HasPrincipalKey(p => p.Id);
 
-            builder.HasOne(oi => oi.order)
-                .WithMany(o => o.orderItems)
-                .HasForeignKey(oi => oi.idOrders)
-                .HasPrincipalKey(o => o.id);
+            builder.HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.IdOrders)
+                .HasPrincipalKey(o => o.Id);
 
-            builder.Navigation(oi => oi.product).AutoInclude();
-            builder.Navigation(oi => oi.order).AutoInclude();
+            builder.Navigation(oi => oi.Product).AutoInclude();
+            builder.Navigation(oi => oi.Order).AutoInclude();
         }
     }
 }

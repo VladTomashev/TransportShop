@@ -2,10 +2,10 @@
 {
     public class Order : AbstractEntity
     {
-        public int idUser { get; set; }
-        public double totalPrice { get; set; }
+        public int IdUser { get; set; }
+        public double TotalPrice { get; set; }
 
-        public User user { get; set; }
-        public List<OrderItem> orderItems { get; set; }
+        public User User { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }

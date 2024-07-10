@@ -2,11 +2,11 @@
 {
     public class User : AbstractEntity
     {
-        public string login { get; set; }
-        public string password { get; set; }
-        public string phone { get; set; }
-        public string address { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
 
-        public List<Order> orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

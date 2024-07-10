@@ -14,52 +14,52 @@ namespace TransportShop.DAL.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idCategory = table.Column<int>(type: "int", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    price = table.Column<double>(type: "float", nullable: false),
-                    weight = table.Column<int>(type: "int", nullable: false),
-                    maxSpeed = table.Column<int>(type: "int", nullable: false),
-                    fuelConsumption = table.Column<double>(type: "float", nullable: false)
+                    IdCategory = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Weight = table.Column<int>(type: "int", nullable: false),
+                    MaxSpeed = table.Column<int>(type: "int", nullable: false),
+                    FuelConsumption = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_idCategory",
-                        column: x => x.idCategory,
+                        name: "FK_Products_Categories_IdCategory",
+                        column: x => x.IdCategory,
                         principalTable: "Categories",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -67,19 +67,19 @@ namespace TransportShop.DAL.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idUser = table.Column<int>(type: "int", nullable: false),
-                    totalPrice = table.Column<double>(type: "float", nullable: false)
+                    IdUser = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_idUser",
-                        column: x => x.idUser,
+                        name: "FK_Orders_Users_IdUser",
+                        column: x => x.IdUser,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -87,48 +87,48 @@ namespace TransportShop.DAL.Migrations
                 name: "OrderItems",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idProduct = table.Column<int>(type: "int", nullable: false),
-                    idOrders = table.Column<int>(type: "int", nullable: false),
-                    count = table.Column<int>(type: "int", nullable: false)
+                    IdProduct = table.Column<int>(type: "int", nullable: false),
+                    IdOrders = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItems", x => x.id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItems_Orders_idOrders",
-                        column: x => x.idOrders,
+                        name: "FK_OrderItems_Orders_IdOrders",
+                        column: x => x.IdOrders,
                         principalTable: "Orders",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderItems_Products_idProduct",
-                        column: x => x.idProduct,
+                        name: "FK_OrderItems_Products_IdProduct",
+                        column: x => x.IdProduct,
                         principalTable: "Products",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_idOrders",
+                name: "IX_OrderItems_IdOrders",
                 table: "OrderItems",
-                column: "idOrders");
+                column: "IdOrders");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_idProduct",
+                name: "IX_OrderItems_IdProduct",
                 table: "OrderItems",
-                column: "idProduct");
+                column: "IdProduct");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_idUser",
+                name: "IX_Orders_IdUser",
                 table: "Orders",
-                column: "idUser");
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_idCategory",
+                name: "IX_Products_IdCategory",
                 table: "Products",
-                column: "idCategory");
+                column: "IdCategory");
         }
 
         /// <inheritdoc />

@@ -8,12 +8,12 @@ namespace TransportShop.DAL.EF.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasOne(p => p.category)
-                .WithMany(c => c.products)
-                .HasForeignKey(p => p.idCategory)
-                .HasPrincipalKey(c => c.id);
+            builder.HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.IdCategory)
+                .HasPrincipalKey(c => c.Id);
 
-            builder.Navigation(p => p.category).AutoInclude();
+            builder.Navigation(p => p.Category).AutoInclude();
         }
     }
 }

@@ -23,185 +23,185 @@ namespace TransportShop.DAL.Migrations
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Category", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Order", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("idUser")
+                    b.Property<int>("IdUser")
                         .HasColumnType("int");
 
-                    b.Property<double>("totalPrice")
+                    b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("idUser");
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.OrderItem", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("count")
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int>("idOrders")
+                    b.Property<int>("IdOrders")
                         .HasColumnType("int");
 
-                    b.Property<int>("idProduct")
+                    b.Property<int>("IdProduct")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("idOrders");
+                    b.HasIndex("IdOrders");
 
-                    b.HasIndex("idProduct");
+                    b.HasIndex("IdProduct");
 
                     b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("fuelConsumption")
+                    b.Property<double>("FuelConsumption")
                         .HasColumnType("float");
 
-                    b.Property<int>("idCategory")
+                    b.Property<int>("IdCategory")
                         .HasColumnType("int");
 
-                    b.Property<int>("maxSpeed")
+                    b.Property<int>("MaxSpeed")
                         .HasColumnType("int");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("weight")
+                    b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("idCategory");
+                    b.HasIndex("IdCategory");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("address")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("login")
+                    b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phone")
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Order", b =>
                 {
-                    b.HasOne("TransportShop.DAL.Entities.User", "user")
-                        .WithMany("orders")
-                        .HasForeignKey("idUser")
+                    b.HasOne("TransportShop.DAL.Entities.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.OrderItem", b =>
                 {
-                    b.HasOne("TransportShop.DAL.Entities.Order", "order")
-                        .WithMany("orderItems")
-                        .HasForeignKey("idOrders")
+                    b.HasOne("TransportShop.DAL.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("IdOrders")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TransportShop.DAL.Entities.Product", "product")
+                    b.HasOne("TransportShop.DAL.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("idProduct")
+                        .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("order");
+                    b.Navigation("Order");
 
-                    b.Navigation("product");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Product", b =>
                 {
-                    b.HasOne("TransportShop.DAL.Entities.Category", "category")
-                        .WithMany("products")
-                        .HasForeignKey("idCategory")
+                    b.HasOne("TransportShop.DAL.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("IdCategory")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Category", b =>
                 {
-                    b.Navigation("products");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.Order", b =>
                 {
-                    b.Navigation("orderItems");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("TransportShop.DAL.Entities.User", b =>
                 {
-                    b.Navigation("orders");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

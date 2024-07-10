@@ -2,13 +2,13 @@
 {
     public class Product : AbstractEntity
     {
-        public int idCategory { get; set; }
-        public string name { get; set; }
-        public double price { get; set; }
-        public int weight { get; set; }
-        public int maxSpeed { get; set; }
-        public double fuelConsumption { get; set; }
+        public int IdCategory { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public int Weight { get; set; }
+        public int MaxSpeed { get; set; }
+        public double FuelConsumption { get; set; }
 
-        public Category category { get; set; }
+        public Category Category { get; set; }
     }
 }

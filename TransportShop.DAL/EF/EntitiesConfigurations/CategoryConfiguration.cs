@@ -8,7 +8,7 @@ namespace TransportShop.DAL.EF.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.Navigation(c => c.products).AutoInclude();
+            builder.Navigation(c => c.Products).AutoInclude();
         }
     }
 }

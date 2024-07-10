@@ -2,8 +2,8 @@
 {
     public class Category : AbstractEntity
     {
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public List<Product> products { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

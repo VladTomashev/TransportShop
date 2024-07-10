@@ -2,11 +2,11 @@
 {
     public class OrderItem : AbstractEntity
     {
-        public int idProduct { get; set; }
-        public int idOrders { get; set; }
-        public int count { get; set; }
+        public int IdProduct { get; set; }
+        public int IdOrders { get; set; }
+        public int Count { get; set; }
 
-        public Product product { get; set; }
-        public Order order { get; set; }
+        public Product Product { get; set; }
+        public Order Order { get; set; }
     }
 }
