@@ -1,4 +1,5 @@
-﻿using TransportShop.DAL.EF;
+﻿using Microsoft.EntityFrameworkCore;
+using TransportShop.DAL.EF;
 using TransportShop.DAL.Entities;
 using TransportShop.DAL.Interfaces;
 
@@ -7,42 +8,43 @@ namespace TransportShop.DAL.Repositories
     public class Repository<T> : IRepository<T> where T : AbstractEntity
     {
         protected DataContext db;
+
         public Repository()
         {
             db = new DataContext();
         }
 
-        public void Add(T entity)
+        public async Task AddAsync(T entity)
         {
-            db.Set<T>().Add(entity);
-            db.SaveChanges();
+            await db.Set<T>().AddAsync(entity);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            T entity = db.Set<T>().Find(id);
+            T entity = await db.Set<T>().FindAsync(id);
 
             if (entity != null)
             {
                 db.Set<T>().Remove(entity);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return db.Set<T>().ToList();
+            return await db.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return db.Set<T>().Find(id);
+            return await db.Set<T>().FindAsync(id);
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             db.Set<T>().Update(entity);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
     }
 }
