@@ -7,7 +7,7 @@ namespace TransportShop.DAL.Repositories
     {
         public List<Order> GetOrdersByUser(int userId)
         {
-            return new UserRepository().GetById(userId).Orders;
+            return db.Orders.Where(order => order.IdUser == userId).ToList();
         }
     }
 }
