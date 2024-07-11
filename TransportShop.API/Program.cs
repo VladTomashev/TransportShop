@@ -1,7 +1,24 @@
-using TransportShop.DAL.EF;
+using TransportShop.DAL.Entities;
+using TransportShop.DAL.Repositories;
 
-DataContext db = new DataContext();
-foreach (var p in db.Products)
+class Program
 {
-    Console.WriteLine($"Продукт {p.Name} в категории {p.Category.Name}");
+    static async Task Main(string[] args)
+    {
+        await TestRepositoryAsync();
+    }
+
+    public static async Task TestRepositoryAsync()
+    {
+        Repository<Product> prodRep = new Repository<Product>();
+
+        IEnumerable<Product> products = await prodRep.GetAllAsync();
+
+        List<Product> productList = products.ToList();
+
+        foreach (var product in productList)
+        {
+            Console.WriteLine($"Product ID: {product.Id}, Product Name: {product.Name}, Product Category: {product.Category.Name}");
+        }
+    }
 }
