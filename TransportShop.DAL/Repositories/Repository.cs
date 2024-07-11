@@ -23,23 +23,21 @@ namespace TransportShop.DAL.Repositories
         public async Task DeleteAsync(int id)
         {
             T entity = await db.Set<T>().FindAsync(id);
-
-            if (entity != null)
-            {
-                db.Set<T>().Remove(entity);
-                await db.SaveChangesAsync();
-            }
+            db.Set<T>().Remove(entity);
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await db.Set<T>().ToListAsync();
+            return await db.Set<T>().AsNoTracking().ToListAsync();
         }
+
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await db.Set<T>().FindAsync(id);
+            return await db.Set<T>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
         }
+
 
         public async Task UpdateAsync(T entity)
         {
