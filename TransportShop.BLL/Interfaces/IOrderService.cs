@@ -6,6 +6,6 @@ namespace TransportShop.DAL.Interfaces
 {
     internal interface IOrderService : IService<Order>
     {
-        public List<Order> GetOrdersByUser(int userId);
+        public Task<List<Order>> GetOrdersByUser(int userId);
     }
 }

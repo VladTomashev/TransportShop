@@ -2,7 +2,7 @@
 {
     internal class OrderResponse
 {
-    public double TotalPrice { get; set; }
-    public DateTime OrderDate { get; set; }
-}
+        public bool Success { get; set; }
+        public string Message { get; set; }
+    }
 }
