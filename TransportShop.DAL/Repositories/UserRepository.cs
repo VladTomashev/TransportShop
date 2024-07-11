@@ -1,20 +1,16 @@
-﻿using TransportShop.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TransportShop.DAL.Entities;
 using TransportShop.DAL.Interfaces;
 
 namespace TransportShop.DAL.Repositories
 {
     internal class UserRepository : Repository<User>, IUserRepository
     {
-        public User? GetUserByOrder(int orderId)
+        public async Task<User?> GetUserByOrderAsync(int orderId)
         {
-            foreach (var user in db.Users)
-            {
-                if (user.Orders.Where(order => order.Id == orderId).ToList().Count != 0)
-                {
-                    return user;
-                }
-            }
-            return null;
+            return await db.Users
+                               .Include(user => user.Orders)
+                               .FirstOrDefaultAsync(user => user.Orders.Any(order => order.Id == orderId));
         }
     }
 }

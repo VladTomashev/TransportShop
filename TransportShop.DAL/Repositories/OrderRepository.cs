@@ -1,13 +1,14 @@
-﻿using TransportShop.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TransportShop.DAL.Entities;
 using TransportShop.DAL.Interfaces;
 
 namespace TransportShop.DAL.Repositories
 {
     public class OrderRepository : Repository<Order>, IOrderRepository
     {
-        public List<Order> GetOrdersByUser(int userId)
+        public Task<List<Order>> GetOrdersByUserAsync(int userId)
         {
-            return db.Orders.Where(order => order.IdUser == userId).ToList();
+            return db.Orders.Where(order => order.IdUser == userId).ToListAsync();
         }
     }
 }

@@ -4,6 +4,6 @@ namespace TransportShop.DAL.Interfaces
 {
     internal interface IUserRepository : IRepository<User>
     {
-        public User? GetUserByOrder(int orderId);
+        public Task<User?> GetUserByOrderAsync(int orderId);
     }
 }

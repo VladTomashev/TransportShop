@@ -4,6 +4,6 @@ namespace TransportShop.BLL.Interfaces
 {
     internal interface IUserService : IService<User>
     {
-        public User GetUserByOrder(int orderId);
+        public Task<User> GetUserByOrderAsync(int orderId);
     }
 }
