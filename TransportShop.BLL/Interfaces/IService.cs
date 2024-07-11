@@ -11,8 +11,8 @@ namespace TransportShop.BLL.Interfaces
     {
         IEnumerable<T> GetAll();
         T GetById(int id);
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(int id);
+        Task Add(T entity);
+        Task Update(T entity);
+        Task Delete(int id);
     }
 }

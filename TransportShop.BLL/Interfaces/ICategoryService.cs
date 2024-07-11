@@ -9,6 +9,6 @@ namespace TransportShop.BLL.Interfaces
 {
     internal interface ICategoryService : IService<Category>
     {
-        public List<Product> GetProductsByCategory(int categoryId);
+        public Task<Product> GetProductsByCategory(int categoryId);
     }
 }
