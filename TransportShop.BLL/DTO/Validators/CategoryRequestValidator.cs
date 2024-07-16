@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using TransportShop.BLL.DTO.Request;
 
-namespace TransportShop.BLL.DTO_Validators
+namespace TransportShop.BLL.DTO.Validators
 {
     internal class CategoryRequestValidator : AbstractValidator<CategoryRequest>
     {
         public CategoryRequestValidator()
         {
-            RuleFor(category=> category.CategoryName)
+            RuleFor(category => category.CategoryName)
                 .NotEmpty()
                 .MinimumLength(4)
                 .WithMessage("Categoryname must contain more than 3 characters");
