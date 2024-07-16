@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TransportShop.BLL.DTO;
+using TransportShop.BLL.DTO.Request;
 
-namespace TransportShop.BLL.DTO_Validators
+namespace TransportShop.BLL.DTO.Validators
 {
     internal class OrderItemsRequestValidator : AbstractValidator<OrderItemsRequest>
     {

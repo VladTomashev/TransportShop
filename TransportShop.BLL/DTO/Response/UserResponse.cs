@@ -1,7 +1,7 @@
-﻿namespace TransportShop.BLL.DTO
+﻿namespace TransportShop.BLL.DTO.Response
 {
-    internal class OrderResponse
-{
+    internal class UserResponse
+    {
         public bool Success { get; set; }
         public string Message { get; set; }
     }

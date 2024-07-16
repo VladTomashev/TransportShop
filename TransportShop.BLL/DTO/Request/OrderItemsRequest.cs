@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TransportShop.BLL.DTO
+namespace TransportShop.BLL.DTO.Request
 {
     internal class OrderItemsRequest
     {

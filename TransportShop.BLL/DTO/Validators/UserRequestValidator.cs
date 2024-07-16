@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using TransportShop.BLL.DTO;
+using TransportShop.BLL.DTO.Request;
 
-namespace TransportShop.BLL.DTO_Validators
+namespace TransportShop.BLL.DTO.Validators
 {
     internal class UserRequestValidator : AbstractValidator<UserRequest>
     {
-        public UserRequestValidator() 
+        public UserRequestValidator()
         {
             RuleFor(user => user.UserName)
                     .NotEmpty()

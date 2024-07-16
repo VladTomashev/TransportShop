@@ -1,6 +1,6 @@
 ﻿using TransportShop.DAL.Entities;
 
-namespace TransportShop.BLL.DTO
+namespace TransportShop.BLL.DTO.Request
 {
     internal class OrderRequest
     {

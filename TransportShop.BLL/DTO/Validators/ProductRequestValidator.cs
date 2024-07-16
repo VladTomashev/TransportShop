@@ -5,10 +5,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FluentValidation;
-using TransportShop.BLL.DTO;
+using TransportShop.BLL.DTO.Request;
 
 
-namespace TransportShop.BLL.DTO_Validators
+namespace TransportShop.BLL.DTO.Validators
 {
     internal class ProductRequestValidator : AbstractValidator<ProductRequest>
     {

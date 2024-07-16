@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TransportShop.DAL.Entities;
 
-namespace TransportShop.BLL.DTO
+namespace TransportShop.BLL.DTO.Response
 {
-    internal class OrderItemsResponse
+    internal class ProductResponse
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
-        public List<OrderItem>? Items { get; set; }
+        public string? Message { get; set; }
+        public List<Product>? Products { get; set; }
     }
 }
