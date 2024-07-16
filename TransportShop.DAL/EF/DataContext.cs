@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using TransportShop.DAL.EF.EntitiesConfigurations;
 using TransportShop.DAL.Entities;
 
 namespace TransportShop.DAL.EF

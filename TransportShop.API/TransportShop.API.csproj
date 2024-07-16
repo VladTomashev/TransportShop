@@ -21,4 +21,8 @@
     <ProjectReference Include="..\TransportShop.DAL\TransportShop.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
