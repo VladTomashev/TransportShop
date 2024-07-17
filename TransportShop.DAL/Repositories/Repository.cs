@@ -14,35 +14,33 @@ namespace TransportShop.DAL.Repositories
             db = new DataContext();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await db.Set<T>().AddAsync(entity);
-            await db.SaveChangesAsync();
+            await db.Set<T>().AddAsync(entity, cancellationToken);
+            await db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
         {
-            T entity = await db.Set<T>().FindAsync(id);
+            T entity = await db.Set<T>().FindAsync(new object[] { id }, cancellationToken: cancellationToken);
             db.Set<T>().Remove(entity);
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await db.Set<T>().AsNoTracking().ToListAsync();
+            return await db.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
         }
 
-
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await db.Set<T>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            return await db.Set<T>().AsNoTracking().FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
 
-
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             db.Set<T>().Update(entity);
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync(cancellationToken);
         }
     }
 }

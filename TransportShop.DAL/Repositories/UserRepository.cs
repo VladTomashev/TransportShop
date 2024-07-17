@@ -4,13 +4,11 @@ using TransportShop.DAL.Interfaces;
 
 namespace TransportShop.DAL.Repositories
 {
-    internal class UserRepository : Repository<User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        public async Task<User?> GetUserByOrderAsync(int orderId)
+        public async Task<User?> GetUserByOrderAsync(int orderId, CancellationToken cancellationToken = default)
         {
-            return await db.Users
-                               .Include(user => user.Orders)
-                               .FirstOrDefaultAsync(user => user.Orders.Any(order => order.Id == orderId));
+            return await db.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Orders.Any(order => order.Id == orderId), cancellationToken);
         }
     }
 }

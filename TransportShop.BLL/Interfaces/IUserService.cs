@@ -1,9 +1,12 @@
-﻿using TransportShop.DAL.Entities;
+﻿using TransportShop.BLL.DTO.Request;
+using TransportShop.DAL.Entities;
 
 namespace TransportShop.BLL.Interfaces
 {
-    internal interface IUserService : IService<User>
+    public interface IUserService
     {
-        public Task<User> GetUserByOrderAsync(int orderId);
+        public Task<User> GetUserByOrderAsync(int orderId, CancellationToken cancellationToken = default);
+        public Task SignInAsync(SignInRequest request, CancellationToken cancellationToken = default);
+        public Task SignUpAsync(SignUpRequest request, CancellationToken cancellationToken = default);
     }
 }

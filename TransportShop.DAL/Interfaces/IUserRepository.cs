@@ -2,8 +2,8 @@
 
 namespace TransportShop.DAL.Interfaces
 {
-    internal interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
-        public Task<User?> GetUserByOrderAsync(int orderId);
+        public Task<User?> GetUserByOrderAsync(int orderId, CancellationToken cancellationToken = default);
     }
 }
