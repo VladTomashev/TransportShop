@@ -6,9 +6,9 @@ namespace TransportShop.DAL.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        public async Task<User?> GetUserByOrderAsync(int orderId, CancellationToken cancellationToken = default)
+        public async Task<User?> GetUserByAccountAsync(int accId, CancellationToken cancellationToken = default)
         {
-            return await db.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Orders.Any(order => order.Id == orderId), cancellationToken);
+            return await db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == accId, cancellationToken);
         }
     }
 }
