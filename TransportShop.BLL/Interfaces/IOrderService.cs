@@ -1,11 +1,13 @@
-﻿using TransportShop.BLL.Interfaces;
-using TransportShop.DAL.Entities;
-
+﻿using TransportShop.BLL.DTO.Request;
+using TransportShop.BLL.DTO.Response;
 
 namespace TransportShop.DAL.Interfaces
 {
-    internal interface IOrderService : IService<Order>
+    internal interface IOrderService
     {
-        public Task<List<Order>> GetOrdersByUser(int userId);
+        public Task<List<OrderResponse>> GetOrdersByUserAsync(OrderRequest request, CancellationToken cancellationToken = default);
+        public Task CreateOrderAsync(OrderRequest request, CancellationToken cancellationToken = default);
+        public Task<OrderResponse> GetOrderByIdAsync(int orderId, CancellationToken cancellationToken = default);
+        public Task DeleteOrderById(int orderId, CancellationToken cancellationToken = default);
     }
 }

@@ -7,15 +7,9 @@ namespace TransportShop.BLL.DTO.Validators
     {
         public OrderRequestValidator()
         {
-            RuleFor(order => order.UserName)
-                    .NotEmpty()
-                    .MinimumLength(4)
-                    .WithMessage("Username must contain more than 3 characters");
-
-            RuleFor(order => order.UserName)
-                    .Matches(@"^[A-Za-z0-9_]*$")
-                    .WithMessage("Username must contain only letters, numbers or underline");
-
+            RuleFor(order => order.Principal)
+                .NotNull()
+                .WithMessage("User is not authenticated.");
             RuleFor(order => order.Items)
                 .NotNull()
                 .WithMessage("There are no items");

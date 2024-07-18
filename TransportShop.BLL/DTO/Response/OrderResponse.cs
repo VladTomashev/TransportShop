@@ -1,8 +1,9 @@
-﻿namespace TransportShop.BLL.DTO.Response
+﻿using TransportShop.DAL.Entities;
+
+namespace TransportShop.BLL.DTO.Response
 {
     internal class OrderResponse
     {
-        public bool Success { get; set; }
-        public string Message { get; set; }
+        public Order Order { get; set; }
     }
 }
