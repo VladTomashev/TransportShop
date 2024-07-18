@@ -2,7 +2,7 @@
 
 namespace TransportShop.BLL.DTO.Response
 {
-    public class OrdersListResponse
+    public class OrderListResponse
     {
         public List<Order> Orders { get; set; }
     }

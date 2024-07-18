@@ -80,7 +80,7 @@ namespace TransportShop.BLL.Services
             await ValidateOrderRequestAsync(orderValidator, request, cancellationToken);
             var userId = await userService.GetMyIdByJwtAsync(request.Principal, cancellationToken);
             var orders = await orderRepository.GetOrdersByUserAsync(userId);           
-            return new OrdersListResponse
+            return new OrderListResponse
             {
                 Orders = orders
             };
