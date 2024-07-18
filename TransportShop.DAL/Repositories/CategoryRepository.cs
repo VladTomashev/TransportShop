@@ -6,9 +6,9 @@ namespace TransportShop.DAL.Repositories
 {
     internal class CategoryRepository : Repository<Category> , ICategoryRepository
     {
-        public async Task<Category?> GetCategoryByNameAsync(string name)
+        public Task<List<Category>> GetCategoryByNameAsync(string name, CancellationToken cancellationToken = default)
         {
-            return await db.Categories.FirstOrDefaultAsync(category => category.Name.Contains(name));
+            return db.Categories.Where(category => category.Name == name).ToListAsync(cancellationToken);
         }
     }
 }
