@@ -1,8 +1,10 @@
 ﻿namespace TransportShop.BLL.DTO.Response
 {
-    internal class UserResponse
+    public class UserResponse
     {
-        public bool Success { get; set; }
-        public string Message { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
     }
 }
