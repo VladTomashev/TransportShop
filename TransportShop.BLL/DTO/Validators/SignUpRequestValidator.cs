@@ -16,6 +16,10 @@ namespace TransportShop.BLL.DTO.Validators
                 .NotEmpty().WithMessage("Password is required")
                 .Length(8, 50).WithMessage("The password length must be from 8 to 50 characters");
 
+            RuleFor(r => r.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .Length(3, 50).WithMessage("The name length must be from 3 to 50 characters")
+                .Matches(@"^[a-zA-Zа-яА-Я\s]+$").WithMessage("Name must contain only letters and spaces");
 
             RuleFor(r => r.Phone)
                 .NotEmpty().WithMessage("Phone number is required")

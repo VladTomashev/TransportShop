@@ -6,9 +6,9 @@ namespace TransportShop.DAL.Repositories
 {
     public class AccountRepository : Repository<Account>, IAccountRepository
     {
-        public async Task<Account?> GetAccountByLoginAndPasswordAsync(string login, string password, CancellationToken cancellationToken = default)
+        public async Task<Account?> GetAccountByLoginAsync(string login, CancellationToken cancellationToken = default)
         {
-            return await db.Accounts.AsNoTracking().FirstOrDefaultAsync(a => a.Login == login && a.Password == password, cancellationToken);
+            return await db.Accounts.AsNoTracking().FirstOrDefaultAsync(a => a.Login == login, cancellationToken);
         }
 
         public async Task<Account> GetAccountByUserAsync(int userId, CancellationToken cancellationToken = default)
