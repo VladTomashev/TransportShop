@@ -3,7 +3,7 @@ using TransportShop.BLL.DTO.Response;
 
 namespace TransportShop.DAL.Interfaces
 {
-    internal interface IOrderService
+    public interface IOrderService
     {
         public Task<List<OrderResponse>> GetOrdersByUserAsync(OrderRequest request, CancellationToken cancellationToken = default);
         public Task CreateOrderAsync(OrderRequest request, CancellationToken cancellationToken = default);

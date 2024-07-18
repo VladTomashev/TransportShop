@@ -79,13 +79,11 @@ namespace TransportShop.BLL.Services
         {
             await ValidateOrderRequestAsync(orderValidator, request, cancellationToken);
             var userId = await userService.GetMyIdByJwtAsync(request.Principal, cancellationToken);
-            var orders = await orderRepository.GetOrdersByUserAsync(userId);
-            var ordersResponse = new List<OrderResponse>();
-            foreach (var order in orders)
+            var orders = await orderRepository.GetOrdersByUserAsync(userId);           
+            return new OrderListResponse
             {
-                ordersResponse.Add(new OrderResponse { Order = order });
-            }
-            return ordersResponse;
+                Orders = orders
+            };
         }
 
         private async Task ValidateOrderRequestAsync(IValidator<OrderRequest> validator, OrderRequest request, CancellationToken cancellationToken)
