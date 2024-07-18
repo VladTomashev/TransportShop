@@ -12,8 +12,8 @@ namespace TransportShop.BLL.Interfaces
         public Task<TokenResponse> RefreshTokenAsync(TokenRequest request, CancellationToken cancellationToken = default);
         public Task<int> GetMyIdByJwtAsync(ClaimsPrincipal principal, CancellationToken cancellationToken = default);
         public Task<UserProfileResponse> GetMyProfileByJwtAsync(ClaimsPrincipal principal, CancellationToken cancellationToken = default);
-        public Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default);
-        public Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken = default);
+        public Task<IEnumerable<UserResponse>> GetAllUsersAsync(CancellationToken cancellationToken = default);
+        public Task<UserResponse> GetUserByIdAsync(int id, CancellationToken cancellationToken = default);
         public Task DeleteUserAsync(int id, CancellationToken cancellationToken = default);
 
     }

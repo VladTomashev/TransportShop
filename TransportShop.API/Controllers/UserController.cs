@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TransportShop.BLL.DTO.Request;
 using TransportShop.BLL.DTO.Response;
 using TransportShop.BLL.Interfaces;
-using TransportShop.BLL.Services;
 using TransportShop.DAL.Entities;
+using TransportShop.DAL.Enums;
 
 namespace TransportShop.API.Controllers
 {
@@ -23,18 +24,19 @@ namespace TransportShop.API.Controllers
         [HttpPost("signin")]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest request, CancellationToken cancellationToken)
         {
-            await userService.SignInAsync(request, cancellationToken);
-            return Ok();
+            TokenResponse response = await userService.SignInAsync(request, cancellationToken);
+            return Ok(response);
         }
 
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] SignUpRequest request, CancellationToken cancellationToken)
         {
-            await userService.SignUpAsync(request, cancellationToken);
-            return Ok();
+            TokenResponse response =await userService.SignUpAsync(request, cancellationToken);
+            return Ok(response);
         }
 
         [HttpPost("refreshtoken")]
+        [Authorize]
         public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request, CancellationToken cancellationToken)
         {
             TokenResponse response = await userService.RefreshTokenAsync(request, cancellationToken);
@@ -42,6 +44,7 @@ namespace TransportShop.API.Controllers
         }
 
         [HttpGet("profile")]
+        [Authorize(Roles = nameof(Role.User))]
         public async Task<IActionResult> GetMyProfile(CancellationToken cancellationToken)
         {
             UserProfileResponse response = await userService.GetMyProfileByJwtAsync(HttpContext.User);
@@ -49,13 +52,15 @@ namespace TransportShop.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers(CancellationToken cancellationToken)
+        [Authorize(Roles = nameof(Role.Manager) + "," + nameof(Role.Admin))]
+        public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers(CancellationToken cancellationToken)
         {
-            IEnumerable<User> users = await userService.GetAllUsersAsync(cancellationToken);
+            IEnumerable<UserResponse> users = await userService.GetAllUsersAsync(cancellationToken);
             return Ok(users);
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = nameof(Role.Manager) + "," + nameof(Role.Admin))]
         public async Task<ActionResult<User>> GetUserById(int id, CancellationToken cancellationToken)
         {
             var user = await userService.GetUserByIdAsync(id, cancellationToken);
@@ -63,12 +68,11 @@ namespace TransportShop.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = nameof(Role.Admin))]
         public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
         {
             await userService.DeleteUserAsync(id, cancellationToken);
             return Ok();
         }
-
-
     }
 }

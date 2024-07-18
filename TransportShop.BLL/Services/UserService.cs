@@ -49,7 +49,7 @@ namespace TransportShop.BLL.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, account.Login),
-                new Claim(ClaimTypes.Role, ((int)account.Role).ToString())
+                new Claim(ClaimTypes.Role, account.Role.ToString())
             };
 
             string newAccessTokenString = tokenService.GenerateAccessToken(claims);
@@ -67,7 +67,6 @@ namespace TransportShop.BLL.Services
                 RefreshToken newRefreshToken = new RefreshToken()
                 {
                     Id = account.Id,
-                    Account = account,
                     Token = newRefreshTokenString,
                     LifeTime = DateTime.Now.AddDays(7)
                 };
@@ -96,14 +95,13 @@ namespace TransportShop.BLL.Services
 
             User user = mapper.Map<User>(request);
             user.Id = account.Id;
-            user.Account = account;
 
             await userRepo.AddAsync(user);
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, account.Login),
-                new Claim(ClaimTypes.Role, ((int)account.Role).ToString())
+                new Claim(ClaimTypes.Role, account.Role.ToString())
             };
 
             string newAccessTokenString = tokenService.GenerateAccessToken(claims);
@@ -112,7 +110,6 @@ namespace TransportShop.BLL.Services
             RefreshToken newRefreshToken = new RefreshToken()
             {
                 Id = account.Id,
-                Account = account,
                 Token = newRefreshTokenString,
                 LifeTime = DateTime.Now.AddDays(7)
             };
@@ -190,28 +187,33 @@ namespace TransportShop.BLL.Services
             return response;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<UserResponse>> GetAllUsersAsync(CancellationToken cancellationToken = default)
         {
             IEnumerable<User> users = await userRepo.GetAllAsync(cancellationToken = default);
             if (users == null || !users.Any())
                 throw new NotFoundException("Users not found");
-            return users;
+
+            IEnumerable<UserResponse> response = mapper.Map<IEnumerable<UserResponse>>(users);
+            return response;
         }
 
-        public async Task<User> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<UserResponse> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             User user = await userRepo.GetByIdAsync(id, cancellationToken = default);
             if (user == null)
                 throw new NotFoundException("User is not found");
-            return user;
+
+            UserResponse response = mapper.Map<UserResponse>(user);
+            return response;
         }
 
         public async Task DeleteUserAsync(int id, CancellationToken cancellationToken = default)
         {
-            User user = await userRepo.GetByIdAsync(id, cancellationToken = default);
-            if (user == null)
-                throw new NotFoundException("User is not found");
-            await userRepo.DeleteAsync(id, cancellationToken = default);
+            Account account = await accountRepo.GetByIdAsync(id, cancellationToken = default);
+            if (account == null)
+                throw new NotFoundException("Account is not found");
+
+            await accountRepo.DeleteAsync(id, cancellationToken = default);
         }
 
         private async Task ValidateRequestAsync<T>(IValidator<T> validator, T request, CancellationToken cancellationToken)

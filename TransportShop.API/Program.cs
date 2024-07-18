@@ -1,24 +1,91 @@
-using TransportShop.DAL.Entities;
+using FluentValidation;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
+using TransportShop.BLL.DTO.Validators;
+using TransportShop.BLL.Interfaces;
+using TransportShop.BLL.Services;
+using TransportShop.DAL.EF;
+using TransportShop.DAL.Interfaces;
 using TransportShop.DAL.Repositories;
 
-class Program
+public class Program
 {
-    static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
-        await TestRepositoryAsync();
-    }
+        var builder = WebApplication.CreateBuilder(args);
 
-    public static async Task TestRepositoryAsync()
-    {
-        Repository<Product> prodRep = new Repository<Product>();
+        builder.Configuration.AddJsonFile("appsettings.json");
 
-        IEnumerable<Product> products = await prodRep.GetAllAsync();
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        List<Product> productList = products.ToList();
+        builder.Services.AddValidatorsFromAssemblyContaining<SignInRequestValidator>();
 
-        foreach (var product in productList)
+        builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
         {
-            Console.WriteLine($"Product ID: {product.Id}, Product Name: {product.Name}, Product Category: {product.Category.Name}");
-        }
+            var configuration = builder.Configuration.GetSection("AppSettings");
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                    .GetBytes(configuration["JwtSecretKey"]))
+            };
+        });
+
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(opt =>
+        {
+            opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "Please enter token",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer"
+            });
+
+            opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[]{}
+                }
+            });
+        });
+
+        builder.Services.AddDbContext<DataContext>();
+
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
+        builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
+        var app = builder.Build();
+
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.Run();
     }
 }
