@@ -181,16 +181,13 @@ namespace TransportShop.BLL.Services
             if (account == null)
                 throw new NotFoundException("Account is not found");
 
-            User? profile = await userRepo.GetByIdAsync(account.Id, cancellationToken = default);
-            if (profile == null)
+            User? user = await userRepo.GetByIdAsync(account.Id, cancellationToken = default);
+            if (user == null)
                 throw new NotFoundException("Profile is not found");
 
-            return new UserProfileResponse()
-            {
-                Name = profile.Name,
-                Address = profile.Address,
-                Phone = profile.Phone,
-            };
+            UserProfileResponse response = mapper.Map<UserProfileResponse>(user);
+
+            return response;
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken cancellationToken = default)

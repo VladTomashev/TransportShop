@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TransportShop.BLL.DTO.Request;
+using TransportShop.BLL.DTO.Response;
 using TransportShop.DAL.Entities;
 
 namespace TransportShop.BLL.Mappers
@@ -10,6 +11,7 @@ namespace TransportShop.BLL.Mappers
         {
             CreateMap<SignUpRequest, User>();
             CreateMap<SignUpRequest, Account>();
+            CreateMap<User, UserProfileResponse>();
         }
     }
 }
