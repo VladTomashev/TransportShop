@@ -2,8 +2,8 @@
 
 namespace TransportShop.DAL.Interfaces
 {
-    internal interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryRepository : IRepository<Category>
     {
-        public Task<Category?> GetCategoryByNameAsync(string name);
+        public Task<List<Category>> GetCategoryByNameAsync(string name, CancellationToken cancellationToken = default);
     }
 }

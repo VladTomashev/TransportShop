@@ -2,9 +2,9 @@
 
 namespace TransportShop.DAL.Interfaces
 {
-    internal interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
-        public Task<List<Product>> GetProductByCategoryAsync(int categoryId);
-        public Task<List<Product>> GetProductsByNameAsync(string name);
+        public Task<List<Product>> GetProductByCategoryAsync(string categoryName, CancellationToken cancellationToken = default);
+        public Task<List<Product>> GetProductsByNameAsync(string name, CancellationToken cancellationToken = default);
     }
 }
